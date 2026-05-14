@@ -42,7 +42,7 @@ export default function Result() {
   // Fetch AI explanation directly from Gemini using the key from Settings.
   useEffect(() => {
     if (!data) return;
-    const apiKey = localStorage.getItem("attrix_gemini_key");
+    const { data: settingsData } = await supabase.from("app_settings").select("value").eq("key", "gemini_api_key").single(); const apiKey = settingsData?.value || localStorage.getItem("attrix_gemini_key");
     if (!apiKey) {
       setAiError("Admin has not configured the Gemini API key yet.");
       setAiExplanation("");
@@ -277,3 +277,4 @@ function downloadReport(i: PredictionInput, r: PredictionResult, explanation: st
   a.download = `attrix-report-${(i.name || "employee").replace(/\s+/g, "-")}.txt`;
   a.click();
 }
+
