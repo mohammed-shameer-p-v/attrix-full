@@ -1,0 +1,5 @@
+﻿node_modules/
+.env
+dist/
+backend/__pycache__/
+backend/*.pkl
